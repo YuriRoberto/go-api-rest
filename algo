@@ -1,0 +1,10 @@
+docker exec -it a4393f36727f /bin/bash
+
+CREATE TABLE books (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    description VARCHAR(255),
+    medium_price FLOAT,
+    author VARCHAR(255),
+    image_url VARCHAR(255)
+);

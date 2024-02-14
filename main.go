@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/YuriRoberto/go-api/database"
-	server "github.com/YuriRoberto/go-api/server"
+	"github.com/YuriRoberto/go-api-rest/database"
+	server "github.com/YuriRoberto/go-api-rest/server"
 )
 
 func main() {

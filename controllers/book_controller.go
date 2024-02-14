@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/YuriRoberto/go-api/database"
-	"github.com/YuriRoberto/go-api/models"
+	"github.com/YuriRoberto/go-api-rest/database"
+	"github.com/YuriRoberto/go-api-rest/models"
 	"github.com/gin-gonic/gin"
 	"strconv"
 )
@@ -68,21 +68,28 @@ func ShowBooks(c *gin.Context) {
 		})
 		return
 	}
+
+	c.JSON(200, books)
 }
 
 func UpdateBook(c *gin.Context) {
+
+	id := c.Param("id")
+
+	newid, err := strconv.Atoi(id)
+
 	db := database.GetDataBase()
 
 	var book models.Book
 
-	err := c.ShouldBindJSON(&book)
+	err = c.ShouldBindJSON(&book)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "cannot bind JSON: " + err.Error(),
 		})
 		return
 	}
-
+	book.ID = uint(newid)
 	err = db.Save(&book).Error
 
 	if err != nil {
@@ -93,4 +100,29 @@ func UpdateBook(c *gin.Context) {
 	}
 
 	c.JSON(200, book)
+}
+
+func DeleteBook(c *gin.Context) {
+	id := c.Param("id")
+
+	newid, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "ID has to be a integer",
+		})
+		return
+	}
+
+	db := database.GetDataBase()
+
+	err = db.Delete(&models.Book{}, newid).Error
+
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "cannot delete book: " + err.Error(),
+		})
+		return
+	}
+
+	c.Status(204)
 }

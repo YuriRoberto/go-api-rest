@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/YuriRoberto/go-api/routes"
+	"github.com/YuriRoberto/go-api-rest/routes"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )
